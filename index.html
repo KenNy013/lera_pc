@@ -4,44 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для Леры ❤️</title>
+    <title>Для моей любимой Леры</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="card" id="mainCard">
-        <div class="header">
-            <h1>Лера</h1>
+    <div class="card-container">
+        <div class="message-card active">
+            <h2>Моя любимая Лера ❤️</h2>
+            <p>Ты — самое прекрасное, что случилось в моей жизни!</p>
         </div>
-        <div class="messages-container" id="messagesContainer">
-            <!-- Сообщения будут добавляться динамически -->
+
+        <div class="message-card">
+            <h2>Каждый день с тобой 🌸</h2>
+            <p>Наполнен теплом, радостью и нежностью...</p>
         </div>
-        <div class="footer">
-            <p>от Даниила</p>
+
+        <div class="message-card">
+            <h2>Твоя улыбка ☀️</h2>
+            <p>Освещает даже самые хмурые дни!</p>
         </div>
-        <button class="heart-btn" id="heartBtn">❤️</button>
-        <button class="secret-btn" id="secretBtn">Секрет...</button>
-        <div class="floating-hearts" id="floatingHearts"></div>
+
+        <div class="message-card">
+            <h2>Ты вдохновляешь меня ✨</h2>
+            <p>Быть лучше, сильнее, добрее...</p>
+        </div>
+
+        <div class="message-card">
+            <h2>Я счастлив 🥰</h2>
+            <p>Что ты есть в моей жизни!</p>
+        </div>
+
+        <button class="surprise-btn">Нажми на меня, любимая! 💖</button>
     </div>
 
-    <!-- Секретная страница -->
-    <div class="secret-page" id="secretPage">
-        <h2>Для тебя, Лера</h2>
-        <p>Это место, где собраны наши самые теплые моменты (пока что в виде заглушек). Здесь могла
-            бы
-            быть наша фотогалерея с самыми дорогими сердцу моментами.</p>
-
-        <div class="photo-grid">
-            <div class="photo-placeholder">📸</div>
-            <div class="photo-placeholder">🌹</div>
-            <div class="photo-placeholder">😊</div>
-            <div class="photo-placeholder">💕</div>
+    <div class="photo-container">
+        <img src="" alt="Фото Леры" id="lera-photo">
+        <div class="final-message">
+            <p>Спасибо тебе, Лера, что веришь в меня 💫</p>
         </div>
-
-        <p>Каждый день с тобой - это подарок, который я ценю больше всего на свете.</p>
-        <button class="close-btn" id="closeBtn">Закрыть</button>
     </div>
-    <script src="script.js"></script>
+
+    <script src="./script.js">
+
+    </script>
 </body>
 
 </html>
