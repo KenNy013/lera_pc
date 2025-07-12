@@ -76,6 +76,7 @@ function createHearts() {
       heart.style.top = Math.random() * 100 + 100 + "vh";
       heart.style.animation = `float ${Math.random() * 6 + 4}s linear forwards`;
       heart.style.animationDelay = Math.random() * 2 + "s";
+      heart.style.zIndex = 100;
 
       document.body.appendChild(heart);
 
