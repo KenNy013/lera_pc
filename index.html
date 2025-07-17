@@ -4,50 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для моей любимой Леры</title>
+    <title>Для Леры</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="card-container">
-        <div class="message-card active">
-            <h2>Моя любимая Лера ❤️</h2>
-            <p>Ты — самое прекрасное, что случилось в моей жизни!</p>
-        </div>
-
-        <div class="message-card">
-            <h2>Каждый день с тобой 🌸</h2>
-            <p>Наполнен теплом, радостью и нежностью...</p>
-        </div>
-
-        <div class="message-card">
-            <h2>Твоя улыбка ☀️</h2>
-            <p>Освещает даже самые хмурые дни!</p>
-        </div>
-
-        <div class="message-card">
-            <h2>Ты вдохновляешь меня ✨</h2>
-            <p>Быть лучше, сильнее, добрее...</p>
-        </div>
-
-        <div class="message-card">
-            <h2>Я счастлив 🥰</h2>
-            <p>Что ты есть в моей жизни!</p>
-        </div>
-
-        <button class="surprise-btn">Нажми на меня, любимая! 💖</button>
+    <div id="title-screen">
+        <h1><span class="secret-btn">Лера</span>, ты мне очень дорога!</h1>
+        <p>Я люблю тебя больше всего на свете ❤️</p>
+        <button id="start-button">Открыть подарок в этом месяце</button>
     </div>
 
-    <div class="photo-container">
-        <img src="" alt="Фото Леры" id="lera-photo">
-        <div class="final-message">
-            <p>Спасибо тебе, Лера, что веришь в меня 💫</p>
-        </div>
+    <div id="secret-page">
+        <h1 style="font-size: 2.5em; color: #ff6b9d; margin-bottom: 30px;">Ты самая лучшая!</h1>
+        <p style="font-size: 1.5em; max-width: 80%; margin: 0 auto 30px;">
+            Каждый момент с тобой - это подарок судьбы.<br>
+            Ты делаешь мою жизнь яркой и счастливой!<br>
+            Я бесконечно благодарен за то, что ты есть в моей жизни ❤️
+        </p>
+        <button id="close-secret">Вернуться</button>
     </div>
 
-    <script src="./script.js">
 
-    </script>
+    <div id="case-screen">
+        <h2>Нажми на кейс, чтобы узнать подарок!</h2>
+        <div id="case">
+            🎁
+        </div>
+        <div id="items-container"></div>
+    </div>
+
+    <div id="result-screen">
+        <h2>Твой подарок!</h2>
+        <div id="result-item">❤️</div>
+        <p id="result-text">Я куплю тебе...</p>
+        <button id="restart-button">Ещё разок!</button>
+    </div>
+
+    <script src="./script.js"></script>
 </body>
 
 </html>
