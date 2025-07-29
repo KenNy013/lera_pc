@@ -296,6 +296,11 @@ body {
     width: 100%;
 }
 
+.photo-placeholder img {
+    width: 100%;
+    height: 100%;
+}
+
 .photo-placeholder::before {
     content: '';
     position: absolute;
