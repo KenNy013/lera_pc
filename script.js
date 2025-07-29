@@ -1,165 +1,129 @@
-const gifts = [
-  { emoji: "👗", text: "Красивое платье" },
-  { emoji: "💐", text: "Букет цветов" },
-  { emoji: "🎮", text: "Конструктор Гарри Поттера" },
-  { emoji: "❤️", text: "Всю свою любовь" },
-  { emoji: "🍽️", text: "Свожу тебя в любимый ресторн" },
-  { emoji: "💍", text: "Колечко" },
-  { emoji: "🚕", text: "Все-таки продам свою почку и куплю мерседес" },
-  { emoji: "🤤", text: "Твои любимые духи" },
-];
+document.addEventListener("DOMContentLoaded", function () {
+  const messages = [
+    "Ты самая прекрасная!",
+    "Твоя улыбка освещает мой день",
+    "Рядом с тобой я счастлив",
+    "Ты делаешь мир лучше",
+    "Ты вдохновляешь меня",
+    "Спасибо, что ты есть ❤️",
+    "Ты - самое лучшее, что со мной случилось",
+    "Каждый момент с тобой - подарок",
+  ];
 
-const titleScreen = document.getElementById("title-screen");
-const caseScreen = document.getElementById("case-screen");
-const resultScreen = document.getElementById("result-screen");
-const startButton = document.getElementById("start-button");
-const caseElement = document.getElementById("case");
-const itemsContainer = document.getElementById("items-container");
-const resultItem = document.getElementById("result-item");
-const resultText = document.getElementById("result-text");
-const restartButton = document.getElementById("restart-button");
+  const container = document.getElementById("messagesContainer");
+  const heartBtn = document.getElementById("heartBtn");
+  const secretBtn = document.getElementById("secretBtn");
+  const closeBtn = document.getElementById("closeBtn");
+  const secretPage = document.getElementById("secretPage");
+  const mainCard = document.getElementById("mainCard");
+  const floatingHearts = document.getElementById("floatingHearts");
 
-let isSpinning = false;
-let currentPosition = 0;
-let spinInterval;
-let selectedGift;
-
-// Заполняем контейнер предметами
-function fillItemsContainer() {
-  itemsContainer.innerHTML = "";
-  // Добавляем больше предметов для эффекта бесконечной прокрутки
-  for (let i = 0; i < 50; i++) {
-    const gift = gifts[Math.floor(Math.random() * gifts.length)];
-    const item = document.createElement("div");
-    item.className = "item";
-    item.textContent = gift.emoji;
-    item.style.left = `${i * 100}px`;
-    item.dataset.emoji = gift.emoji;
-    item.dataset.text = gift.text;
-    itemsContainer.appendChild(item);
-  }
-}
-
-// Начинаем вращение
-function startSpin() {
-  if (isSpinning) return;
-
-  isSpinning = true;
-  currentPosition = 0;
-
-  // Скрываем все подсветки
-  document.querySelectorAll(".item.highlight").forEach((item) => {
-    item.classList.remove("highlight");
+  // Создаем элементы для всех сообщений
+  messages.forEach((msg, index) => {
+    const msgElement = document.createElement("div");
+    msgElement.classList.add("message");
+    if (index === 0) {
+      setTimeout(() => {
+        msgElement.classList.add("active");
+      }, 1200);
+    }
+    msgElement.textContent = msg;
+    container.appendChild(msgElement);
   });
 
-  // Запускаем анимацию
-  spinInterval = setInterval(() => {
-    currentPosition += 10;
-    itemsContainer.scrollLeft = currentPosition;
+  const messageElements = document.querySelectorAll(".message");
+  let currentMessage = 0;
+  let autoChangeInterval;
 
-    // Подсвечиваем центральный элемент
-    const items = document.querySelectorAll(".item");
-    const centerIndex = Math.floor(items.length / 2);
+  // Функция показа сообщения
+  function showMessage(index) {
+    messageElements[currentMessage].classList.remove("active");
+    currentMessage = (index + messages.length) % messages.length;
+    messageElements[currentMessage].classList.add("active");
 
-    items.forEach((item, index) => {
-      item.classList.remove("highlight");
-      if (index === centerIndex) {
-        item.classList.add("highlight");
-        selectedGift = {
-          emoji: item.dataset.emoji,
-          text: item.dataset.text,
-        };
-      }
-    });
-  }, 50);
-
-  // Останавливаем через случайное время (1-3 секунды)
-  setTimeout(stopSpin, 1000 + Math.random() * 2000);
-}
-
-// Останавливаем вращение
-function stopSpin() {
-  clearInterval(spinInterval);
-  isSpinning = false;
-
-  // Показываем результат
-  showResult();
-}
-
-// Показываем результат
-function showResult() {
-  caseScreen.style.display = "none";
-  resultScreen.style.display = "block";
-
-  resultItem.textContent = selectedGift.emoji;
-  resultText.textContent = `Я куплю тебе ${selectedGift.text}!`;
-}
-
-// Обработчики событий
-startButton.addEventListener("click", () => {
-  titleScreen.style.display = "none";
-  caseScreen.style.display = "block";
-  fillItemsContainer();
-});
-
-caseElement.addEventListener("click", () => {
-  if (!isSpinning) {
-    startSpin();
-  }
-});
-
-restartButton.addEventListener("click", () => {
-  resultScreen.style.display = "none";
-  caseScreen.style.display = "block";
-  fillItemsContainer();
-});
-
-// Секретная кнопка
-const secretBtn = document.querySelector(".secret-btn");
-const secretPage = document.getElementById("secret-page");
-const closeBtn = document.getElementById("close-secret");
-
-secretBtn.addEventListener("click", function () {
-  secretPage.style.display = "flex";
-  createHearts();
-});
-
-closeBtn.addEventListener("click", function () {
-  secretPage.style.display = "none";
-});
-
-// Создание сердечек
-function createHearts() {
-  // Очищаем предыдущие сердечки
-  document.querySelectorAll(".heart").forEach((el) => el.remove());
-
-  // Создаем 30 сердечек
-  for (let i = 0; i < 30; i++) {
+    // Анимация перехода
+    container.style.opacity = 0;
     setTimeout(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.top = Math.random() * 100 + "vh";
-      heart.style.fontSize = Math.random() * 20 + 10 + "px";
-      heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-      secretPage.appendChild(heart);
+      container.style.opacity = 1;
+    }, 300);
 
-      // Удаляем сердечко после анимации
+    resetAutoChange();
+  }
+
+  // Автопереключение сообщений
+  function startAutoChange() {
+    autoChangeInterval = setInterval(() => {
+      showMessage((currentMessage + 1) % messages.length);
+    }, 5000);
+  }
+
+  function resetAutoChange() {
+    clearInterval(autoChangeInterval);
+    startAutoChange();
+  }
+
+  // Переключение по клику на карточку
+  container.addEventListener("click", function (e) {
+    if (e.target.classList.contains("message")) return;
+    showMessage(currentMessage + 1);
+  });
+
+  // Анимация сердечка
+  heartBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    createHearts(10);
+    this.style.animation = "pulse 0.8s ease";
+
+    setTimeout(() => {
+      this.style.animation = "";
+    }, 800);
+  });
+
+  // Создание плавающих сердечек
+  function createHearts(count) {
+    for (let i = 0; i < count; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart-particle");
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "%";
+      heart.style.top = Math.random() * 20 + 80 + "%";
+      heart.style.fontSize = Math.random() * 0.5 + 0.8 + "rem";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+
+      floatingHearts.appendChild(heart);
+
       setTimeout(() => {
         heart.remove();
       }, 4000);
-    }, i * 200);
+    }
   }
-}
 
-// Продолжаем создавать сердечки каждые 3 секунды
-let heartsInterval;
-secretBtn.addEventListener("click", function () {
-  createHearts();
-  heartsInterval = setInterval(createHearts, 3000);
-});
+  // Параллакс эффект
+  mainCard.addEventListener("mousemove", (e) => {
+    const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+    const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+    mainCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+  });
 
-closeBtn.addEventListener("click", function () {
-  clearInterval(heartsInterval);
+  mainCard.addEventListener("mouseenter", () => {
+    mainCard.style.transition = "all 0.1s ease";
+  });
+
+  mainCard.addEventListener("mouseleave", () => {
+    mainCard.style.transition = "all 0.5s ease";
+    mainCard.style.transform = `rotateY(0deg) rotateX(0deg)`;
+  });
+
+  // Секретная кнопка
+  secretBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    secretPage.classList.add("show");
+  });
+
+  closeBtn.addEventListener("click", () => {
+    secretPage.classList.remove("show");
+  });
+
+  // Запускаем автопереключение
+  startAutoChange();
 });
